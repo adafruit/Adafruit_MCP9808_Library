@@ -23,7 +23,12 @@
  #include "WProgram.h"
 #endif
 
-#include <Wire.h>
+#ifdef __AVR_ATtiny85__
+ #include "TinyWireM.h"
+ #define Wire TinyWireM
+#else
+ #include <Wire.h>
+#endif
 
 #define MCP9808_I2CADDR_DEFAULT        0x18
 #define MCP9808_REG_CONFIG             0x01
