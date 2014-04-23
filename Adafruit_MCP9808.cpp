@@ -77,7 +77,7 @@ float Adafruit_MCP9808::readTempC( void )
 
   float temp = t & 0x0FFF;
   temp /=  16.0;
-  if (t & 0x1000) temp = 256 - temp;
+  if (t & 0x1000) temp -= 256;
 
   return temp;
 }
