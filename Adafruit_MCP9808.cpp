@@ -58,17 +58,9 @@ boolean Adafruit_MCP9808::begin(uint8_t addr) {
  
 /**************************************************************************/
 /*! 
-    @brief  Sets the output voltage to a fraction of source vref.  (Value
-            can be 0..4095)
+    @brief  Reads the 16-bit temperature register and returns the Centigrade
+            temperature as a float.
 
-    @param[in]  output
-                The 12-bit value representing the relationship between
-                the DAC's input voltage and its output voltage.
-    @param[in]  writeEEPROM
-                If this value is true, 'output' will also be written
-                to the MCP9808's internal non-volatile memory, meaning
-                that the DAC will retain the current voltage output
-                after power-down or reset.
 */
 /**************************************************************************/
 float Adafruit_MCP9808::readTempC( void )
