@@ -38,8 +38,9 @@
     @brief  Instantiates a new MCP9808 class
 */
 /**************************************************************************/
-Adafruit_MCP9808::Adafruit_MCP9808() {
-}
+Adafruit_MCP9808::Adafruit_MCP9808()
+: _i2caddr(0)
+{ }
 
 /**************************************************************************/
 /*! 
@@ -55,7 +56,28 @@ boolean Adafruit_MCP9808::begin(uint8_t addr) {
 
   return true;
 }
- 
+
+
+/**************************************************************************/
+/*!
+    @brief  Reads the 16-bit temperature register and returns the Fahrenheit
+            temperature as a float.
+
+*/
+/**************************************************************************/
+float Adafruit_MCP9808::readTempF( void )
+{
+  uint16_t t = read16(MCP9808_REG_AMBIENT_TEMP);
+
+  float temp = t & 0x0FFF;
+  temp /=  16.0;
+  if (t & 0x1000) temp -= 256;
+
+  temp = temp * 9.0 / 5.0 + 32;
+
+  return temp;
+}
+
 /**************************************************************************/
 /*! 
     @brief  Reads the 16-bit temperature register and returns the Centigrade
