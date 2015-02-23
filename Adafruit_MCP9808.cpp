@@ -55,7 +55,7 @@ boolean Adafruit_MCP9808::begin(uint8_t addr) {
 
   return true;
 }
- 
+
 /**************************************************************************/
 /*! 
     @brief  Reads the 16-bit temperature register and returns the Centigrade
@@ -72,6 +72,37 @@ float Adafruit_MCP9808::readTempC( void )
   if (t & 0x1000) temp -= 256;
 
   return temp;
+}
+
+/**************************************************************************/
+/*! 
+    @brief  Sends the MCP9808 into SHUTDOWN mode, if possible
+
+*/
+/**************************************************************************/
+boolean Adafruit_MCP9808::powerDown( void )
+{
+  uint16_t t = read16(MCP9808_REG_CONFIG);
+  if (t & MCP9808_REG_CONFIG_CRITLOCKED == MCP9808_REG_CONFIG_CRITLOCKED ||
+      t & MCP9808_REG_CONFIG_WINLOCKED == MCP9808_REG_CONFIG_WINLOCKED) {
+      	return false;
+      }
+  t |= MCP9808_REG_CONFIG_SHUTDOWN;
+  write16(MCP9808_REG_CONFIG, t);
+  return true;
+}
+
+/**************************************************************************/
+/*! 
+    @brief  Brings the MCP9808 out of SHUTDOWN mode
+
+*/
+/**************************************************************************/
+void Adafruit_MCP9808::powerUp( void )
+{
+  uint16_t t = read16(MCP9808_REG_CONFIG);
+  t &= ~MCP9808_REG_CONFIG_SHUTDOWN;
+  write16(MCP9808_REG_CONFIG, t);
 }
 
 /**************************************************************************/
