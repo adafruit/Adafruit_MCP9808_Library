@@ -74,6 +74,35 @@ float Adafruit_MCP9808::readTempC( void )
   return temp;
 }
 
+
+
+//*************************************************************************
+// Set Sensor to Shutdown-State or wake up (Conf_Register BIT8)
+// 1= shutdown / 0= wake up
+//*************************************************************************
+
+int Adafruit_MCP9808::shutdown_wake( uint8_t sw_ID )
+{
+    uint16_t conf_shutdown ;
+    uint16_t conf_register = read16(MCP9808_REG_CONFIG);
+    if (sw_ID == 1)
+    {
+       conf_shutdown = conf_register | MCP9808_REG_CONFIG_SHUTDOWN ;
+       write16(MCP9808_REG_CONFIG, conf_shutdown);
+    }
+    if (sw_ID == 0)
+    {
+       conf_shutdown = conf_register ^ MCP9808_REG_CONFIG_SHUTDOWN ;
+       write16(MCP9808_REG_CONFIG, conf_shutdown);
+    }
+
+
+    return 0;
+}
+
+
+
+
 /**************************************************************************/
 /*! 
     @brief  Low level 16 bit read and write procedures!
