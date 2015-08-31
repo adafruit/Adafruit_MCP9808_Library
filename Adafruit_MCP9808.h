@@ -39,7 +39,7 @@
 #define MCP9808_REG_CONFIG_INTCLR      0x0020
 #define MCP9808_REG_CONFIG_ALERTSTAT   0x0010
 #define MCP9808_REG_CONFIG_ALERTCTRL   0x0008
-#define MCP9808_REG_CONFIG_ALERTSEL    0x0002
+#define MCP9808_REG_CONFIG_ALERTSEL    0x0004
 #define MCP9808_REG_CONFIG_ALERTPOL    0x0002
 #define MCP9808_REG_CONFIG_ALERTMODE   0x0001
 
@@ -56,6 +56,7 @@ class Adafruit_MCP9808 {
   boolean begin(uint8_t a = MCP9808_I2CADDR_DEFAULT);  
   float readTempF( void );
   float readTempC( void );
+  int shutdown_wake( uint8_t sw_ID );
 
   void write16(uint8_t reg, uint16_t val);
   uint16_t read16(uint8_t reg);

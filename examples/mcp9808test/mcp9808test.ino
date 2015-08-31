@@ -33,4 +33,14 @@ void loop() {
   Serial.print("Temp: "); Serial.print(c); Serial.print("*C\t"); 
   Serial.print(f); Serial.println("*F");
   delay(250);
+  
+  Serial.println("Shutdown MCP9808.... ");
+  tempsensor.shutdown_wake(1); // shutdown MSP9808 - power consumption ~0.1 mikro Ampere
+  
+  delay(2000);
+  
+  Serial.println("wake up MCP9808.... "); // wake up MSP9808 - power consumption ~200 mikro Ampere
+  tempsensor.shutdown_wake(0);
+  
+   
 }
