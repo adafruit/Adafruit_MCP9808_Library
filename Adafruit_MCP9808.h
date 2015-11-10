@@ -56,7 +56,16 @@ class Adafruit_MCP9808 {
   boolean begin(uint8_t a = MCP9808_I2CADDR_DEFAULT);  
   float readTempF( void );
   float readTempC( void );
-  int shutdown_wake( uint8_t sw_ID );
+  void shutdown();
+  void awake();
+  int shutdown_wake( uint8_t sw_ID ) {
+    if (sw_ID == 0) {
+      shutdown();
+    } else {
+      awake();
+    }
+    return 0;
+  }
 
   void write16(uint8_t reg, uint16_t val);
   uint16_t read16(uint8_t reg);
