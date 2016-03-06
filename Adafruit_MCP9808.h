@@ -51,6 +51,11 @@
 #define MCP9808_REG_DEVICE_ID          0x07
 #define MCP9808_REG_RESOLUTION         0x08
 
+#define MCP9808_RES_HALF               0x00
+#define MCP9808_RES_QUARTER            0x01
+#define MCP9808_RES_EIGHTH             0x02
+#define MCP9808_RES_SIXTEENTH          0x03
+
 class Adafruit_MCP9808 {
  public:
   Adafruit_MCP9808();
