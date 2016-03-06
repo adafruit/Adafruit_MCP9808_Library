@@ -100,6 +100,15 @@ int Adafruit_MCP9808::shutdown_wake( uint8_t sw_ID )
     return 0;
 }
 
+uint8_t Adafruit_MCP9808::getResolution( void )
+{
+    return read8(MCP9808_REG_RESOLUTION);
+}
+
+void Adafruit_MCP9808::setResolution( uint8_t value )
+{
+    write8(MCP9808_REG_RESOLUTION, value & 0x03);
+}
 
 
 
@@ -129,4 +138,29 @@ uint16_t Adafruit_MCP9808::read16(uint8_t reg) {
   val <<= 8;
   val |= Wire.read();  
   return val;  
+}
+
+/**************************************************************************/
+/*!
+ @brief  Low level 8 bit read and write procedures!
+ */
+/**************************************************************************/
+
+void Adafruit_MCP9808::write8(uint8_t reg, uint8_t value) {
+    Wire.beginTransmission(_i2caddr);
+    Wire.write((uint8_t)reg);
+    Wire.write(value);
+    Wire.endTransmission();
+}
+
+uint8_t Adafruit_MCP9808::read8(uint8_t reg) {
+    uint8_t val;
+    
+    Wire.beginTransmission(_i2caddr);
+    Wire.write((uint8_t)reg);
+    Wire.endTransmission();
+    
+    Wire.requestFrom((uint8_t)_i2caddr, (uint8_t)1);
+    val = Wire.read();
+    return val;
 }
