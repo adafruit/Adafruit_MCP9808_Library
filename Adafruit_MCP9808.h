@@ -49,6 +49,12 @@
 #define MCP9808_REG_AMBIENT_TEMP       0x05
 #define MCP9808_REG_MANUF_ID           0x06
 #define MCP9808_REG_DEVICE_ID          0x07
+#define MCP9808_REG_RESOLUTION         0x08
+
+#define MCP9808_RES_HALF               0x00
+#define MCP9808_RES_QUARTER            0x01
+#define MCP9808_RES_EIGHTH             0x02
+#define MCP9808_RES_SIXTEENTH          0x03
 
 class Adafruit_MCP9808 {
  public:
@@ -56,11 +62,16 @@ class Adafruit_MCP9808 {
   boolean begin(uint8_t a = MCP9808_I2CADDR_DEFAULT);  
   float readTempF( void );
   float readTempC( void );
+  uint8_t getResolution( void );
+  void setResolution( uint8_t value );
   int shutdown_wake( uint8_t sw_ID );
 
   void write16(uint8_t reg, uint16_t val);
   uint16_t read16(uint8_t reg);
 
+  void write8(uint8_t reg, uint8_t val);
+  uint8_t read8(uint8_t reg);
+    
  private:
 
   uint8_t _i2caddr;
