@@ -108,7 +108,7 @@ int Adafruit_MCP9808::shutdown_wake( uint8_t sw_ID )
 /**************************************************************************/
 
 void Adafruit_MCP9808::write16(uint8_t reg, uint16_t value) {
-	Wire.beginTransmission(_i2caddr);
+    Wire.beginTransmission(_i2caddr);
     Wire.write((uint8_t)reg);
     Wire.write(value >> 8);
     Wire.write(value & 0xFF);
