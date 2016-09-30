@@ -16,6 +16,7 @@
     v1.0  - First release
 */
 /**************************************************************************/
+#pragma once
 
 #if ARDUINO >= 100
  #include "Arduino.h"
@@ -57,6 +58,7 @@ class Adafruit_MCP9808 {
   float readTempF( void );
   float readTempC( void );
   int shutdown_wake( uint8_t sw_ID );
+  void regdump( );
 
   void write16(uint8_t reg, uint16_t val);
   uint16_t read16(uint8_t reg);

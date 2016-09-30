@@ -92,7 +92,7 @@ int Adafruit_MCP9808::shutdown_wake( uint8_t sw_ID )
     }
     if (sw_ID == 0)
     {
-       conf_shutdown = conf_register ^ MCP9808_REG_CONFIG_SHUTDOWN ;
+       conf_shutdown = conf_register & (~MCP9808_REG_CONFIG_SHUTDOWN) ;
        write16(MCP9808_REG_CONFIG, conf_shutdown);
     }
 
@@ -100,8 +100,18 @@ int Adafruit_MCP9808::shutdown_wake( uint8_t sw_ID )
     return 0;
 }
 
-
-
+void Adafruit_MCP9808::regdump( )
+{
+	int  i;
+	uint16_t reg;
+	char data[6];
+	for (i=1;i<=7;++i) {
+		reg = read16(i);
+		sprintf(data, "%04x:", reg);
+		Serial.print(data);
+	}
+	Serial.println("");
+}
 
 /**************************************************************************/
 /*! 
@@ -110,7 +120,7 @@ int Adafruit_MCP9808::shutdown_wake( uint8_t sw_ID )
 /**************************************************************************/
 
 void Adafruit_MCP9808::write16(uint8_t reg, uint16_t value) {
-    Wire.beginTransmission(_i2caddr);
+	Wire.beginTransmission(_i2caddr);
     Wire.write((uint8_t)reg);
     Wire.write(value >> 8);
     Wire.write(value & 0xFF);
