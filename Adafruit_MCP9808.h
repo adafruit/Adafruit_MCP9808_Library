@@ -16,6 +16,8 @@
     v1.0  - First release
 */
 /**************************************************************************/
+#ifndef _ADAFRUIT_MCP9808_H
+#define _ADAFRUIT_MCP9808_H
 
 #if ARDUINO >= 100
  #include "Arduino.h"
@@ -65,3 +67,4 @@ class Adafruit_MCP9808 {
 
   uint8_t _i2caddr;
 };
+#endif
