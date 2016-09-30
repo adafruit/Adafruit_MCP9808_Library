@@ -100,18 +100,6 @@ int Adafruit_MCP9808::shutdown_wake( uint8_t sw_ID )
     return 0;
 }
 
-void Adafruit_MCP9808::regdump( )
-{
-	int  i;
-	uint16_t reg;
-	char data[6];
-	for (i=1;i<=7;++i) {
-		reg = read16(i);
-		sprintf(data, "%04x:", reg);
-		Serial.print(data);
-	}
-	Serial.println("");
-}
 
 /**************************************************************************/
 /*! 
