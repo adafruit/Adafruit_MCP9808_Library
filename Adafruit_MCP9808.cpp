@@ -74,6 +74,11 @@ float Adafruit_MCP9808::readTempC( void )
   return temp;
 }
 
+float Adafruit_MCP9808::readTempF( void )
+{
+    return readTempC() * 9.0 / 5.0 + 32;
+}
+
 
 
 //*************************************************************************
