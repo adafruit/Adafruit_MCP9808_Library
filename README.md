@@ -3,8 +3,9 @@ Adafruit_MCP9808
 
 This is a modified version of the Adafruit MCP9808 Precision I2C Temperature sensor library.
 
-Tested and works great with the Adafruit MCP9808 Breakout Board 
+Tested and works great with the Adafruit MCP9808 Breakout Board
     ------> http://www.adafruit.com/products/1782
+Also tested and operative in DAFR Electronics MCP9808 board.
 
 This chip uses I2C to communicate, 2 pins are required to interface (SDA, SCL) 
 
