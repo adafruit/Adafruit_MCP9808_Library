@@ -2,18 +2,18 @@
 /*! 
     @file     Adafruit_MCP9808.cpp
     @author   K.Townsend (Adafruit Industries)
-	@license  BSD (see license.txt)
-	
-	I2C Driver for Microchip's MCP9808 I2C Temp sensor
+    @license  BSD (see license.txt)
+    
+    I2C Driver for Microchip's MCP9808 I2C Temp sensor
 
-	This is a library for the Adafruit MCP9808 breakout
-	----> http://www.adafruit.com/products/1782
+    This is a library for the Adafruit MCP9808 breakout
+    ----> http://www.adafruit.com/products/1782
 		
-	Adafruit invests time and resources providing this open source code, 
-	please support Adafruit and open-source hardware by purchasing 
-	products from Adafruit!
+    Adafruit invests time and resources providing this open source code, 
+    please support Adafruit and open-source hardware by purchasing 
+    products from Adafruit!
 
-	@section  HISTORY
+    @section  HISTORY
 
     v1.0 - First release
 */
@@ -43,7 +43,7 @@ Adafruit_MCP9808::Adafruit_MCP9808() {
 
 /**************************************************************************/
 /*! 
-    @brief  Setups the HW
+    @brief  Sets up the HW
 */
 /**************************************************************************/
 boolean Adafruit_MCP9808::begin(uint8_t addr) {
@@ -58,13 +58,11 @@ boolean Adafruit_MCP9808::begin(uint8_t addr) {
  
 /**************************************************************************/
 /*! 
-    @brief  Reads the 16-bit temperature register and returns the Centigrade
+    @brief  Reads the 16-bit temperature register and returns the centigrade
             temperature as a float.
-
 */
 /**************************************************************************/
-float Adafruit_MCP9808::readTempC( void )
-{
+float Adafruit_MCP9808::readTempC( void ) {
   uint16_t t = read16(MCP9808_REG_AMBIENT_TEMP);
 
   float temp = t & 0x0FFF;
@@ -74,41 +72,32 @@ float Adafruit_MCP9808::readTempC( void )
   return temp;
 }
 
-
-
-//*************************************************************************
-// Set Sensor to Shutdown-State or wake up (Conf_Register BIT8)
-// 1= shutdown / 0= wake up
-//*************************************************************************
-
-int Adafruit_MCP9808::shutdown_wake( uint8_t sw_ID )
-{
-    uint16_t conf_shutdown ;
+/**************************************************************************/
+/*! 
+    @brief  Set Sensor to Shutdown-State or wake up (Conf_Register BIT8)
+            1 = shutdown / 0 = wake up
+*/
+/**************************************************************************/
+int Adafruit_MCP9808::shutdown_wake( uint8_t sw_ID ) {
+    uint16_t conf_shutdown;
     uint16_t conf_register = read16(MCP9808_REG_CONFIG);
-    if (sw_ID == 1)
-    {
-       conf_shutdown = conf_register | MCP9808_REG_CONFIG_SHUTDOWN ;
+    if (sw_ID == 1) {
+       conf_shutdown = conf_register | MCP9808_REG_CONFIG_SHUTDOWN;
        write16(MCP9808_REG_CONFIG, conf_shutdown);
     }
-    if (sw_ID == 0)
-    {
-       conf_shutdown = conf_register ^ MCP9808_REG_CONFIG_SHUTDOWN ;
+    if (sw_ID == 0) {
+       conf_shutdown = conf_register ^ MCP9808_REG_CONFIG_SHUTDOWN;
        write16(MCP9808_REG_CONFIG, conf_shutdown);
     }
-
 
     return 0;
 }
 
-
-
-
 /**************************************************************************/
 /*! 
-    @brief  Low level 16 bit read and write procedures!
+    @brief  Low level 16-bit read and write procedures!
 */
 /**************************************************************************/
-
 void Adafruit_MCP9808::write16(uint8_t reg, uint16_t value) {
     Wire.beginTransmission(_i2caddr);
     Wire.write((uint8_t)reg);
