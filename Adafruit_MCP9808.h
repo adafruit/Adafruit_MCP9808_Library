@@ -17,18 +17,17 @@
 */
 /**************************************************************************/
 
+#ifndef _ADAFRUIT_MCP9808_H
+#define _ADAFRUIT_MCP9808_H
+
 #if ARDUINO >= 100
  #include "Arduino.h"
 #else
  #include "WProgram.h"
 #endif
 
-#ifdef __AVR_ATtiny85__
- #include "TinyWireM.h"
- #define Wire TinyWireM
-#else
- #include <Wire.h>
-#endif
+#include <Wire.h>
+
 
 #define MCP9808_I2CADDR_DEFAULT        0x18
 #define MCP9808_REG_CONFIG             0x01
@@ -67,3 +66,5 @@ class Adafruit_MCP9808 {
 
   uint8_t _i2caddr;
 };
+
+#endif
