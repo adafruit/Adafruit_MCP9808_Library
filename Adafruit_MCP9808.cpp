@@ -53,6 +53,8 @@ boolean Adafruit_MCP9808::begin(uint8_t addr) {
   if (read16(MCP9808_REG_MANUF_ID) != 0x0054) return false;
   if (read16(MCP9808_REG_DEVICE_ID) != 0x0400) return false;
 
+
+  write16(MCP9808_REG_CONFIG, 0x0);
   return true;
 }
  
@@ -86,7 +88,7 @@ float Adafruit_MCP9808::readTempF( void )
 // 1= shutdown / 0= wake up
 //*************************************************************************
 
-int Adafruit_MCP9808::shutdown_wake( uint8_t sw_ID )
+void Adafruit_MCP9808::shutdown_wake( uint8_t sw_ID )
 {
     uint16_t conf_shutdown ;
     uint16_t conf_register = read16(MCP9808_REG_CONFIG);
@@ -97,12 +99,14 @@ int Adafruit_MCP9808::shutdown_wake( uint8_t sw_ID )
     }
     if (sw_ID == 0)
     {
-       conf_shutdown = conf_register ^ MCP9808_REG_CONFIG_SHUTDOWN ;
+       conf_shutdown = conf_register & ~MCP9808_REG_CONFIG_SHUTDOWN ;
        write16(MCP9808_REG_CONFIG, conf_shutdown);
     }
+}
 
-
-    return 0;
+void Adafruit_MCP9808::shutdown(void)
+{
+  shutdown_wake(1);
 }
 
 uint8_t Adafruit_MCP9808::getResolution( void )
@@ -113,6 +117,12 @@ uint8_t Adafruit_MCP9808::getResolution( void )
 void Adafruit_MCP9808::setResolution( uint8_t value )
 {
     write8(MCP9808_REG_RESOLUTION, value & 0x03);
+}
+
+void Adafruit_MCP9808::wake(void)
+{
+  shutdown_wake(0);
+  delay(250);
 }
 
 
