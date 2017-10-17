@@ -97,7 +97,7 @@ int Adafruit_MCP9808::shutdown_wake( uint8_t sw_ID )
     }
     if (sw_ID == 0)
     {
-       conf_shutdown = conf_register & (~MCP9808_REG_CONFIG_SHUTDOWN) ;
+       conf_shutdown = conf_register ^ MCP9808_REG_CONFIG_SHUTDOWN ;
        write16(MCP9808_REG_CONFIG, conf_shutdown);
     }
 
