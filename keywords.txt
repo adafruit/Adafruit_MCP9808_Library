@@ -1,0 +1,9 @@
+Adafruit_MCP9808	KEYWORD1
+begin	KEYWORD2
+readTempF	KEYWORD2
+readTempC	KEYWORD2
+getResolution	KEYWORD2
+setResolution	KEYWORD2
+shutdown_wake	KEYWORD2
+shutdown	KEYWORD2
+wake	KEYWORD2

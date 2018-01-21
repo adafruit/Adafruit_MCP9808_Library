@@ -1,17 +1,17 @@
 /**************************************************************************/
-/*! 
+/*!
     @file     Adafruit_MCP9808.h
     @author   K. Townsend (Adafruit Industries)
-	@license  BSD (see license.txt)
-	
-	This is a library for the Adafruit MCP9808 Temp Sensor breakout board
-	----> http://www.adafruit.com/products/1782
-	
-	Adafruit invests time and resources providing this open source code, 
-	please support Adafruit and open-source hardware by purchasing 
-	products from Adafruit!
+  @license  BSD (see license.txt)
 
-	@section  HISTORY
+  This is a library for the Adafruit MCP9808 Temp Sensor breakout board
+  ----> http://www.adafruit.com/products/1782
+
+  Adafruit invests time and resources providing this open source code,
+  please support Adafruit and open-source hardware by purchasing
+  products from Adafruit!
+
+  @section  HISTORY
 
     v1.0  - First release
 */
@@ -21,9 +21,9 @@
 #define _ADAFRUIT_MCP9808_H
 
 #if ARDUINO >= 100
- #include "Arduino.h"
+  #include "Arduino.h"
 #else
- #include "WProgram.h"
+  #include "WProgram.h"
 #endif
 
 #include <Wire.h>
@@ -48,13 +48,25 @@
 #define MCP9808_REG_AMBIENT_TEMP       0x05
 #define MCP9808_REG_MANUF_ID           0x06
 #define MCP9808_REG_DEVICE_ID          0x07
+#define MCP9808_REG_RESOLUTION         0x08
+
+#define MCP9808_RES_HALF               0x00
+#define MCP9808_RES_QUARTER            0x01
+#define MCP9808_RES_EIGHTH             0x02
+#define MCP9808_RES_SIXTEENTH          0x03
 
 class Adafruit_MCP9808 {
  public:
   Adafruit_MCP9808();
-  boolean begin(uint8_t a = MCP9808_I2CADDR_DEFAULT);  
+  bool begin(void);
+  bool begin(TwoWire *theWire);
+  bool begin(uint8_t addr);
+  bool begin(uint8_t addr, TwoWire *theWire);
+  bool init();
   float readTempF( void );
   float readTempC( void );
+  uint8_t getResolution( void );
+  void setResolution( uint8_t value );
   void shutdown_wake( uint8_t sw_ID );
   void shutdown(void);
   void wake(void);
@@ -62,8 +74,11 @@ class Adafruit_MCP9808 {
   void write16(uint8_t reg, uint16_t val);
   uint16_t read16(uint8_t reg);
 
- private:
+  void write8(uint8_t reg, uint8_t val);
+  uint8_t read8(uint8_t reg);
 
+ private:
+  TwoWire *_wire;
   uint8_t _i2caddr;
 };
 

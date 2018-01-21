@@ -46,9 +46,37 @@ Adafruit_MCP9808::Adafruit_MCP9808() {
     @brief  Setups the HW
 */
 /**************************************************************************/
-boolean Adafruit_MCP9808::begin(uint8_t addr) {
+
+bool Adafruit_MCP9808::begin(TwoWire *theWire)
+{
+  _wire = theWire;
+  _i2caddr = MCP9808_I2CADDR_DEFAULT;
+  return init();
+}
+
+bool Adafruit_MCP9808::begin(uint8_t addr)
+{
   _i2caddr = addr;
-  Wire.begin();
+  _wire = &Wire;
+  return init();
+}
+
+bool Adafruit_MCP9808::begin(uint8_t addr, TwoWire *theWire)
+{
+    _i2caddr = addr;
+  _wire = theWire;
+  return init();
+}
+
+bool Adafruit_MCP9808::begin(void)
+{
+    _i2caddr = MCP9808_I2CADDR_DEFAULT;
+  _wire = &Wire;
+  return init();
+}
+
+bool Adafruit_MCP9808::init(){
+  _wire -> begin();
 
   if (read16(MCP9808_REG_MANUF_ID) != 0x0054) return false;
   if (read16(MCP9808_REG_DEVICE_ID) != 0x0400) return false;
@@ -77,6 +105,24 @@ float Adafruit_MCP9808::readTempC( void )
 }
 
 
+/**************************************************************************/
+/*! 
+    @brief  Reads the 16-bit temperature register and returns the Fahrenheit
+            temperature as a float.
+
+*/
+/**************************************************************************/
+float Adafruit_MCP9808::readTempF( void )
+{
+  uint16_t t = read16(MCP9808_REG_AMBIENT_TEMP);
+
+  float temp = t & 0x0FFF;
+  temp /=  16.0;
+  if (t & 0x1000) temp -= 256;
+  temp = temp * 9.0 / 5.0 + 32;
+  
+  return temp;
+}
 
 //*************************************************************************
 // Set Sensor to Shutdown-State or wake up (Conf_Register BIT8)
@@ -110,7 +156,15 @@ void Adafruit_MCP9808::wake(void)
   delay(250);
 }
 
+uint8_t Adafruit_MCP9808::getResolution( void )
+{
+    return read8(MCP9808_REG_RESOLUTION);
+}
 
+void Adafruit_MCP9808::setResolution( uint8_t value )
+{
+    write8(MCP9808_REG_RESOLUTION, value & 0x03);
+}
 
 /**************************************************************************/
 /*! 
@@ -119,23 +173,48 @@ void Adafruit_MCP9808::wake(void)
 /**************************************************************************/
 
 void Adafruit_MCP9808::write16(uint8_t reg, uint16_t value) {
-    Wire.beginTransmission(_i2caddr);
-    Wire.write((uint8_t)reg);
-    Wire.write(value >> 8);
-    Wire.write(value & 0xFF);
-    Wire.endTransmission();
+    _wire -> beginTransmission(_i2caddr);
+    _wire -> write((uint8_t)reg);
+    _wire -> write(value >> 8);
+    _wire -> write(value & 0xFF);
+    _wire -> endTransmission();
 }
 
 uint16_t Adafruit_MCP9808::read16(uint8_t reg) {
   uint16_t val;
 
-  Wire.beginTransmission(_i2caddr);
-  Wire.write((uint8_t)reg);
-  Wire.endTransmission();
+  _wire -> beginTransmission(_i2caddr);
+  _wire -> write((uint8_t)reg);
+  _wire -> endTransmission();
   
-  Wire.requestFrom((uint8_t)_i2caddr, (uint8_t)2);
-  val = Wire.read();
+  _wire -> requestFrom((uint8_t)_i2caddr, (uint8_t)2);
+  val = _wire -> read();
   val <<= 8;
-  val |= Wire.read();  
+  val |= _wire -> read();  
   return val;  
+}
+
+/**************************************************************************/
+/*!
+ @brief  Low level 8 bit read and write procedures!
+ */
+/**************************************************************************/
+
+void Adafruit_MCP9808::write8(uint8_t reg, uint8_t value) {
+    _wire -> beginTransmission(_i2caddr);
+    _wire -> write((uint8_t)reg);
+    _wire -> write(value);
+    _wire -> endTransmission();
+}
+
+uint8_t Adafruit_MCP9808::read8(uint8_t reg) {
+    uint8_t val;
+    
+    _wire -> beginTransmission(_i2caddr);
+    _wire -> write((uint8_t)reg);
+    _wire -> endTransmission();
+    
+    _wire -> requestFrom((uint8_t)_i2caddr, (uint8_t)1);
+    val = _wire -> read();
+    return val;
 }
