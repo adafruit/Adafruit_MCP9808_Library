@@ -63,11 +63,11 @@ class Adafruit_MCP9808 {
   bool begin(uint8_t addr);
   bool begin(uint8_t addr, TwoWire *theWire);
   bool init();
-  float readTempF( void );
-  float readTempC( void );
-  uint8_t getResolution( void );
-  void setResolution( uint8_t value );
-  void shutdown_wake( uint8_t sw_ID );
+  float readTempF(void);
+  float readTempC(void);
+  uint8_t getResolution(void);
+  void setResolution(uint8_t value);
+  void shutdown_wake(uint8_t sw_ID);
   void shutdown(void);
   void wake(void);
 
@@ -82,4 +82,4 @@ class Adafruit_MCP9808 {
   uint8_t _i2caddr;
 };
 
-#endif
+#endif  // _ADAFRUIT_MCP9808_H
