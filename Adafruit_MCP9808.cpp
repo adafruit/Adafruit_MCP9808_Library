@@ -2,18 +2,18 @@
 /*! 
     @file     Adafruit_MCP9808.cpp
     @author   K.Townsend (Adafruit Industries)
-	@license  BSD (see license.txt)
-	
-	I2C Driver for Microchip's MCP9808 I2C Temp sensor
+    @license  BSD (see license.txt)
+    
+    I2C Driver for Microchip's MCP9808 I2C Temp sensor
 
-	This is a library for the Adafruit MCP9808 breakout
-	----> http://www.adafruit.com/products/1782
-		
-	Adafruit invests time and resources providing this open source code, 
-	please support Adafruit and open-source hardware by purchasing 
-	products from Adafruit!
+    This is a library for the Adafruit MCP9808 breakout
+    ----> http://www.adafruit.com/products/1782
+        
+    Adafruit invests time and resources providing this open source code, 
+    please support Adafruit and open-source hardware by purchasing 
+    products from Adafruit!
 
-	@section  HISTORY
+    @section  HISTORY
 
     v1.0 - First release
 */
@@ -58,6 +58,7 @@ bool Adafruit_MCP9808::begin(uint8_t addr)
 {
   _i2caddr = addr;
   _wire = &Wire;
+  _wire -> begin();
   return init();
 }
 
@@ -76,8 +77,6 @@ bool Adafruit_MCP9808::begin(void)
 }
 
 bool Adafruit_MCP9808::init(){
-  _wire -> begin();
-
   if (read16(MCP9808_REG_MANUF_ID) != 0x0054) return false;
   if (read16(MCP9808_REG_DEVICE_ID) != 0x0400) return false;
 
@@ -95,11 +94,15 @@ bool Adafruit_MCP9808::init(){
 /**************************************************************************/
 float Adafruit_MCP9808::readTempC( void )
 {
+  float temp = NAN;
   uint16_t t = read16(MCP9808_REG_AMBIENT_TEMP);
 
-  float temp = t & 0x0FFF;
-  temp /=  16.0;
-  if (t & 0x1000) temp -= 256;
+  if (t != 0xFFFF)
+  {
+    temp = t & 0x0FFF;
+    temp /=  16.0;
+    if (t & 0x1000) temp -= 256;
+  }
 
   return temp;
 }
@@ -114,13 +117,17 @@ float Adafruit_MCP9808::readTempC( void )
 /**************************************************************************/
 float Adafruit_MCP9808::readTempF( void )
 {
+  float temp = NAN;
   uint16_t t = read16(MCP9808_REG_AMBIENT_TEMP);
 
-  float temp = t & 0x0FFF;
-  temp /=  16.0;
-  if (t & 0x1000) temp -= 256;
-  temp = temp * 9.0 / 5.0 + 32;
-  
+  if (t != 0xFFFF)
+  {
+    temp = t & 0x0FFF;
+    temp /=  16.0;
+    if (t & 0x1000) temp -= 256;
+    temp = temp * 9.0 / 5.0 + 32;
+  }
+
   return temp;
 }
 
@@ -181,16 +188,21 @@ void Adafruit_MCP9808::write16(uint8_t reg, uint16_t value) {
 }
 
 uint16_t Adafruit_MCP9808::read16(uint8_t reg) {
-  uint16_t val;
+  uint16_t val = 0xFFFF;
+  uint8_t state;
 
   _wire -> beginTransmission(_i2caddr);
   _wire -> write((uint8_t)reg);
-  _wire -> endTransmission();
-  
-  _wire -> requestFrom((uint8_t)_i2caddr, (uint8_t)2);
-  val = _wire -> read();
-  val <<= 8;
-  val |= _wire -> read();  
+  state = _wire -> endTransmission();
+
+  if (state == 0)
+  {
+    _wire -> requestFrom((uint8_t)_i2caddr, (uint8_t)2);
+    val = _wire -> read();
+    val <<= 8;
+    val |= _wire -> read();  
+  }
+
   return val;  
 }
 
@@ -208,13 +220,18 @@ void Adafruit_MCP9808::write8(uint8_t reg, uint8_t value) {
 }
 
 uint8_t Adafruit_MCP9808::read8(uint8_t reg) {
-    uint8_t val;
-    
+    uint8_t val = 0xFF;
+    uint8_t state;
+
     _wire -> beginTransmission(_i2caddr);
     _wire -> write((uint8_t)reg);
-    _wire -> endTransmission();
-    
-    _wire -> requestFrom((uint8_t)_i2caddr, (uint8_t)1);
-    val = _wire -> read();
+    state = _wire -> endTransmission();
+
+    if (state == 0)
+    {
+      _wire -> requestFrom((uint8_t)_i2caddr, (uint8_t)1);
+      val = _wire -> read();
+    }
+
     return val;
 }
