@@ -11,7 +11,7 @@
  * 	http://www.adafruit.com/products/1782
  *
  * 	Adafruit invests time and resources providing this open source code,
- * please support Adafruit and open-source hardware by purchasing products from
+ *  please support Adafruit and open-source hardware by purchasing products from
  * 	Adafruit!
  *
  *  @section author Author
