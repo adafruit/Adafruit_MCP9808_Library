@@ -100,12 +100,12 @@ void Adafruit_MCP9808::shutdown_wake(uint8_t sw_ID) {
 }
 
 /*!
- *   @brief  Shutdown MSP9808
+ *   @brief  Shutdown MCP9808
  */
 void Adafruit_MCP9808::shutdown() { shutdown_wake(1); }
 
 /*!
- *   @brief  Wake up MSP9808
+ *   @brief  Wake up MCP9808
  */
 void Adafruit_MCP9808::wake() {
   shutdown_wake(0);
