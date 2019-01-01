@@ -1,4 +1,4 @@
-Adafruit_MCP9808 [![Build Status](https://travis-ci.org/szymonkaliski/Adafruit_MCP9808_Library.svg?branch=master)](https://travis-ci.org/szymonkaliski/Adafruit_MCP9808_Library)
+Adafruit_MCP9808 [![Build Status](https://travis-ci.com/adafruit/Adafruit_MCP9808_Library.svg?branch=master)](https://travis-ci.com/adafruit/Adafruit_MCP9808_Library)
 ================
 
 This is the Adafruit MCP9808 Precision I2C Temperature sensor library
