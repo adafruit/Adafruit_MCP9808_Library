@@ -28,7 +28,7 @@ void setup() {
 }
 
 void loop() {
-  //Serial.println("wake up MCP9808.... "); // wake up MSP9808 - power consumption ~200 mikro Ampere
+  //Serial.println("wake up MCP9808.... "); // wake up MCP9808 - power consumption ~200 mikro Ampere
   //tempsensor.wake();   // wake up, ready to read!
 
   // Read and print out the temperature, then convert to *F
@@ -38,7 +38,7 @@ void loop() {
   Serial.print(f); Serial.println("*F");
   
   //Serial.println("Shutdown MCP9808.... ");
-  //tempsensor.shutdown(); // shutdown MSP9808 - power consumption ~0.1 mikro Ampere
+  //tempsensor.shutdown(); // shutdown MCP9808 - power consumption ~0.1 mikro Ampere
   
   delay(1000);
 }
