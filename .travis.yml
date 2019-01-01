@@ -1,11 +1,12 @@
 language: c
 sudo: false
-
-# Blacklist
-branches:
-  except:
-    - gh-pages
-
+cache:
+  directories:
+    - ~/arduino_ide
+    - ~/.arduino15/packages/
+git:
+  depth: false
+  quiet: true
 env:
   global:
      - PRETTYNAME="Adafruit MCP9808 Arduino Library"
