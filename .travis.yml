@@ -13,7 +13,7 @@ git:
 env:
   global:
      - ARDUINO_IDE_VERSION="1.8.7"
-     - PRETTYNAME="Adafruit MVP9808 Arduino Library"
+     - PRETTYNAME="Adafruit MCP9808 Arduino Library"
 
 before_install:
    - source <(curl -SLs https://raw.githubusercontent.com/adafruit/travis-ci-arduino/master/install.sh)

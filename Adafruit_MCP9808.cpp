@@ -68,7 +68,7 @@ boolean Adafruit_MCP9808::begin(uint8_t addr) {
 /*!
  *   @brief  Reads the 16-bit temperature register and returns the Centigrade
  *           temperature as a float.
- *   @return Teperature in Centigrade.
+ *   @return Temperature in Centigrade.
  */
 float Adafruit_MCP9808::readTempC() {
   uint16_t t = read16(MCP9808_REG_AMBIENT_TEMP);
