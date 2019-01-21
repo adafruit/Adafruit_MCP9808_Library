@@ -16,6 +16,4 @@ Written by Kevin Townsend/Limor Fried for Adafruit Industries.
 BSD license, check license.txt for more information
 All text above must be included in any redistribution
 
-To download. click the DOWNLOADS button in the top right corner, rename the uncompressed folder Adafruit_MCP9808. Check that the Adafruit_MCP9808 folder contains Adafruit_MCP9808.cpp and Adafruit_MCP9808.h
-
-Place the Adafruit_MCP9808 library folder your arduinosketchfolder/libraries/ folder. You may need to create the libraries subfolder if it's your first library. Restart the IDE.
+To install, use the Arduino Library Manager and search for "Adafruit MCP9808" and install the library.
