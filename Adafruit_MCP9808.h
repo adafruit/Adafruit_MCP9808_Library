@@ -54,6 +54,7 @@ public:
   Adafruit_MCP9808();
   boolean begin(uint8_t a = MCP9808_I2CADDR_DEFAULT);
   float readTempC();
+  float readTempF();
   void shutdown_wake(uint8_t sw_ID);
   void shutdown();
   void wake();
