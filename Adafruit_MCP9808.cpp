@@ -82,6 +82,24 @@ float Adafruit_MCP9808::readTempC() {
 }
 
 /*!
+ *   @brief  Reads the 16-bit temperature register and returns the Fahrenheit
+ *           temperature as a float.
+ *   @return Temperature in Fahrenheit.
+ */
+float Adafruit_MCP9808::readTempF() {
+  uint16_t t = read16(MCP9808_REG_AMBIENT_TEMP);
+
+  float temp = t & 0x0FFF;
+  temp /= 16.0;
+  if (t & 0x1000)
+    temp -= 256;
+
+  temp = temp * 9.0 / 5.0 + 32;
+
+  return temp;
+}
+
+/*!
  *   @brief  Set Sensor to Shutdown-State or wake up (Conf_Register BIT8)
  *   @param  sw_ID
  *           1 = shutdown / 0 = wakeup
