@@ -16,5 +16,6 @@ var searchData=
   ['mcp9808_5freg_5fdevice_5fid',['MCP9808_REG_DEVICE_ID',['../_adafruit___m_c_p9808_8h.html#a3c2ce50b4041635bea0d15a60e318784',1,'Adafruit_MCP9808.h']]],
   ['mcp9808_5freg_5flower_5ftemp',['MCP9808_REG_LOWER_TEMP',['../_adafruit___m_c_p9808_8h.html#a060c540e8e68934004062722838afd04',1,'Adafruit_MCP9808.h']]],
   ['mcp9808_5freg_5fmanuf_5fid',['MCP9808_REG_MANUF_ID',['../_adafruit___m_c_p9808_8h.html#a79b6b3eb7060100e17d5e7b8646cd52a',1,'Adafruit_MCP9808.h']]],
+  ['mcp9808_5freg_5fresolution',['MCP9808_REG_RESOLUTION',['../_adafruit___m_c_p9808_8h.html#a9ea19d849a6ad77c81a8d688664854a2',1,'Adafruit_MCP9808.h']]],
   ['mcp9808_5freg_5fupper_5ftemp',['MCP9808_REG_UPPER_TEMP',['../_adafruit___m_c_p9808_8h.html#a10f6f9819d06ddd33160a6dfc484c060',1,'Adafruit_MCP9808.h']]]
 ];

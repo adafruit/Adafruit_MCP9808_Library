@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['wake',['wake',['../class_adafruit___m_c_p9808.html#a0a3abde9acba908ec4d1f90007f4b1c0',1,'Adafruit_MCP9808']]],
-  ['write16',['write16',['../class_adafruit___m_c_p9808.html#a83089d2637c2fabd10ab3cc0d4c3810d',1,'Adafruit_MCP9808']]]
+  ['read16',['read16',['../class_adafruit___m_c_p9808.html#ac081bb0a1632b4cb196db9ddbefeead8',1,'Adafruit_MCP9808']]],
+  ['read8',['read8',['../class_adafruit___m_c_p9808.html#a41863196cd0f8bffcc27d414329391a9',1,'Adafruit_MCP9808']]],
+  ['readtempc',['readTempC',['../class_adafruit___m_c_p9808.html#afa7f0a1f9b09ed403f30da7c49b50ddb',1,'Adafruit_MCP9808']]],
+  ['readtempf',['readTempF',['../class_adafruit___m_c_p9808.html#ac6cf02135825f8740ac7a5cfaa28666f',1,'Adafruit_MCP9808']]]
 ];
