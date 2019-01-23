@@ -102,16 +102,16 @@ float Adafruit_MCP9808::readTempF() {
 /*!
  *   @brief  Set Sensor to Shutdown-State or wake up (Conf_Register BIT8)
  *   @param  sw_ID
- *           1 = shutdown / 0 = wakeup
+ *           true = shutdown / false = wakeup
  */
-void Adafruit_MCP9808::shutdown_wake(uint8_t sw_ID) {
+void Adafruit_MCP9808::shutdown_wake(boolean sw) {
   uint16_t conf_shutdown;
   uint16_t conf_register = read16(MCP9808_REG_CONFIG);
-  if (sw_ID == 1) {
+  if (sw == true) {
     conf_shutdown = conf_register | MCP9808_REG_CONFIG_SHUTDOWN;
     write16(MCP9808_REG_CONFIG, conf_shutdown);
   }
-  if (sw_ID == 0) {
+  if (sw == false) {
     conf_shutdown = conf_register & ~MCP9808_REG_CONFIG_SHUTDOWN;
     write16(MCP9808_REG_CONFIG, conf_shutdown);
   }
@@ -120,13 +120,13 @@ void Adafruit_MCP9808::shutdown_wake(uint8_t sw_ID) {
 /*!
  *   @brief  Shutdown MCP9808
  */
-void Adafruit_MCP9808::shutdown() { shutdown_wake(1); }
+void Adafruit_MCP9808::shutdown() { shutdown_wake(true); }
 
 /*!
  *   @brief  Wake up MCP9808
  */
 void Adafruit_MCP9808::wake() {
-  shutdown_wake(0);
+  shutdown_wake(false);
   delay(250);
 }
 

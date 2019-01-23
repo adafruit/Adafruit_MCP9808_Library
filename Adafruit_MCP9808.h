@@ -55,7 +55,8 @@ public:
   boolean begin(uint8_t a = MCP9808_I2CADDR_DEFAULT);
   float readTempC();
   float readTempF();
-  void shutdown_wake(uint8_t sw_ID);
+  void shutdown_wake(boolean sw);
+
   void shutdown();
   void wake();
 
