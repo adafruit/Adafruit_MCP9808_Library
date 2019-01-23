@@ -44,6 +44,7 @@
 #define MCP9808_REG_AMBIENT_TEMP 0x05 ///< ambient temperature
 #define MCP9808_REG_MANUF_ID 0x06     ///< manufacture ID
 #define MCP9808_REG_DEVICE_ID 0x07    ///< device ID
+#define MCP9808_REG_RESOLUTION 0x08   ///< resolutin
 
 /*!
  *    @brief  Class that stores state and functions for interacting with
@@ -52,18 +53,29 @@
 class Adafruit_MCP9808 {
 public:
   Adafruit_MCP9808();
-  boolean begin(uint8_t a = MCP9808_I2CADDR_DEFAULT);
+  bool begin();
+  bool begin(TwoWire *theWire);
+  bool begin(uint8_t addr);
+  bool begin(uint8_t addr, TwoWire *theWire);
+
+  bool init();
   float readTempC();
   float readTempF();
-  void shutdown_wake(boolean sw);
+  uint8_t getResolution(void);
+  void setResolution(uint8_t value);
 
+  void shutdown_wake(boolean sw);
   void shutdown();
   void wake();
 
   void write16(uint8_t reg, uint16_t val);
   uint16_t read16(uint8_t reg);
 
+  void write8(uint8_t reg, uint8_t val);
+  uint8_t read8(uint8_t reg);
+
 private:
+  TwoWire *_wire;
   uint8_t _i2caddr;
 };
 

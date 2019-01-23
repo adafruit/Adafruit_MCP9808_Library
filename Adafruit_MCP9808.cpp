@@ -49,13 +49,50 @@ Adafruit_MCP9808::Adafruit_MCP9808() {}
 
 /*!
  *    @brief  Setups the HW
+ *    @param  *theWire
+ *    @return True if initialization was successful, otherwise false.
+ */
+bool Adafruit_MCP9808::begin(TwoWire *theWire) {
+  _wire = theWire;
+  _i2caddr = MCP9808_I2CADDR_DEFAULT;
+  return init();
+}
+
+/*!
+ *    @brief  Setups the HW
  *    @param  addr
  *    @return True if initialization was successful, otherwise false.
  */
-boolean Adafruit_MCP9808::begin(uint8_t addr) {
+bool Adafruit_MCP9808::begin(uint8_t addr) {
   _i2caddr = addr;
-  Wire.begin();
+  _wire = &Wire;
+  _wire->begin();
+  return init();
+}
 
+/*!
+ *    @brief  Setups the HW
+ *    @param  addr
+ *    @param  *theWire
+ *    @return True if initialization was successful, otherwise false.
+ */
+bool Adafruit_MCP9808::begin(uint8_t addr, TwoWire *theWire) {
+  _i2caddr = addr;
+  _wire = theWire;
+  return init();
+}
+
+/*!
+ *    @brief  Setups the HW with default address
+ *    @return True if initialization was successful, otherwise false.
+ */
+bool Adafruit_MCP9808::begin() {
+  _i2caddr = MCP9808_I2CADDR_DEFAULT;
+  _wire = &Wire;
+  return init();
+}
+
+bool Adafruit_MCP9808::init() {
   if (read16(MCP9808_REG_MANUF_ID) != 0x0054)
     return false;
   if (read16(MCP9808_REG_DEVICE_ID) != 0x0400)
@@ -131,16 +168,31 @@ void Adafruit_MCP9808::wake() {
 }
 
 /*!
+ *   @brief  Get Resolution Value
+ */
+uint8_t Adafruit_MCP9808::getResolution() {
+  return read8(MCP9808_REG_RESOLUTION);
+}
+
+/*!
+ *   @brief  Set Resolution Value
+ *   @param  value
+ */
+void Adafruit_MCP9808::setResolution(uint8_t value) {
+  write8(MCP9808_REG_RESOLUTION, value & 0x03);
+}
+
+/*!
  *    @brief  Low level 16 bit write procedures
  *    @param  reg
  *    @param  value
  */
 void Adafruit_MCP9808::write16(uint8_t reg, uint16_t value) {
-  Wire.beginTransmission(_i2caddr);
-  Wire.write((uint8_t)reg);
-  Wire.write(value >> 8);
-  Wire.write(value & 0xFF);
-  Wire.endTransmission();
+  _wire->beginTransmission(_i2caddr);
+  _wire->write((uint8_t)reg);
+  _wire->write(value >> 8);
+  _wire->write(value & 0xFF);
+  _wire->endTransmission();
 }
 
 /*!
@@ -149,15 +201,54 @@ void Adafruit_MCP9808::write16(uint8_t reg, uint16_t value) {
  *    @return value
  */
 uint16_t Adafruit_MCP9808::read16(uint8_t reg) {
-  uint16_t val;
+  uint16_t val = 0xFFFF;
+  uint8_t state;
 
-  Wire.beginTransmission(_i2caddr);
-  Wire.write((uint8_t)reg);
-  Wire.endTransmission();
+  _wire->beginTransmission(_i2caddr);
+  _wire->write((uint8_t)reg);
+  state = _wire->endTransmission();
 
-  Wire.requestFrom((uint8_t)_i2caddr, (uint8_t)2);
-  val = Wire.read();
-  val <<= 8;
-  val |= Wire.read();
+  if (state == 0) {
+    _wire->requestFrom((uint8_t)_i2caddr, (uint8_t)2);
+    val = _wire->read();
+    val <<= 8;
+    val |= _wire->read();
+  }
+
+  return val;
+}
+
+/*!
+ *    @brief  Low level 8 bit write procedure
+ *    @param  reg
+ */
+void Adafruit_MCP9808::write8(uint8_t reg, uint8_t value)
+{
+  _wire -> beginTransmission(_i2caddr);
+  _wire -> write((uint8_t)reg);
+  _wire -> write(value);
+  _wire -> endTransmission();
+}
+
+/*!
+ *    @brief  Low level 8 bit read procedure
+ *    @param  reg
+ *    @return value
+ */
+uint8_t Adafruit_MCP9808::read8(uint8_t reg)
+{
+  uint8_t val = 0xFF;
+  uint8_t state;
+
+  _wire -> beginTransmission(_i2caddr);
+  _wire -> write((uint8_t)reg);
+  state = _wire -> endTransmission();
+
+  if (state == 0)
+  {
+    _wire -> requestFrom((uint8_t)_i2caddr, (uint8_t)1);
+    val = _wire -> read();
+  }
+
   return val;
 }
