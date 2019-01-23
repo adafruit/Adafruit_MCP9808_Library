@@ -92,6 +92,10 @@ bool Adafruit_MCP9808::begin() {
   return init();
 }
 
+/*!
+ *    @brief  init function
+ *    @return True if initialization was successful, otherwise false.
+ */
 bool Adafruit_MCP9808::init() {
   if (read16(MCP9808_REG_MANUF_ID) != 0x0054)
     return false;
@@ -138,8 +142,7 @@ float Adafruit_MCP9808::readTempF() {
 
 /*!
  *   @brief  Set Sensor to Shutdown-State or wake up (Conf_Register BIT8)
- *   @param  sw_ID
- *           true = shutdown / false = wakeup
+ *   @param  sw true = shutdown / false = wakeup
  */
 void Adafruit_MCP9808::shutdown_wake(boolean sw) {
   uint16_t conf_shutdown;
@@ -169,6 +172,7 @@ void Adafruit_MCP9808::wake() {
 
 /*!
  *   @brief  Get Resolution Value
+ *   @return Resolution value
  */
 uint8_t Adafruit_MCP9808::getResolution() {
   return read8(MCP9808_REG_RESOLUTION);
@@ -221,6 +225,7 @@ uint16_t Adafruit_MCP9808::read16(uint8_t reg) {
 /*!
  *    @brief  Low level 8 bit write procedure
  *    @param  reg
+ *    @param  value
  */
 void Adafruit_MCP9808::write8(uint8_t reg, uint8_t value)
 {
