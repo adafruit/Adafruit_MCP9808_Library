@@ -89,6 +89,7 @@ bool Adafruit_MCP9808::begin(uint8_t addr, TwoWire *theWire) {
 bool Adafruit_MCP9808::begin() {
   _i2caddr = MCP9808_I2CADDR_DEFAULT;
   _wire = &Wire;
+  _wire->begin();
   return init();
 }
 
