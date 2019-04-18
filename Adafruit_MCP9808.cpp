@@ -66,7 +66,6 @@ bool Adafruit_MCP9808::begin(TwoWire *theWire) {
 bool Adafruit_MCP9808::begin(uint8_t addr) {
   _i2caddr = addr;
   _wire = &Wire;
-  _wire->begin();
   return init();
 }
 
@@ -89,7 +88,6 @@ bool Adafruit_MCP9808::begin(uint8_t addr, TwoWire *theWire) {
 bool Adafruit_MCP9808::begin() {
   _i2caddr = MCP9808_I2CADDR_DEFAULT;
   _wire = &Wire;
-  _wire->begin();
   return init();
 }
 
@@ -98,6 +96,8 @@ bool Adafruit_MCP9808::begin() {
  *    @return True if initialization was successful, otherwise false.
  */
 bool Adafruit_MCP9808::init() {
+  _wire->begin();
+
   if (read16(MCP9808_REG_MANUF_ID) != 0x0054)
     return false;
   if (read16(MCP9808_REG_DEVICE_ID) != 0x0400)
