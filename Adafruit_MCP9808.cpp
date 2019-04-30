@@ -112,12 +112,15 @@ bool Adafruit_MCP9808::init() {
  *   @return Temperature in Centigrade.
  */
 float Adafruit_MCP9808::readTempC() {
+  float temp = NAN;
   uint16_t t = read16(MCP9808_REG_AMBIENT_TEMP);
 
-  float temp = t & 0x0FFF;
-  temp /= 16.0;
-  if (t & 0x1000)
-    temp -= 256;
+  if (t != 0xFFFF) {
+    temp = t & 0x0FFF;
+    temp /= 16.0;
+    if (t & 0x1000)
+      temp -= 256;
+  }
 
   return temp;
 }
@@ -128,14 +131,17 @@ float Adafruit_MCP9808::readTempC() {
  *   @return Temperature in Fahrenheit.
  */
 float Adafruit_MCP9808::readTempF() {
+  float temp = NAN;
   uint16_t t = read16(MCP9808_REG_AMBIENT_TEMP);
 
-  float temp = t & 0x0FFF;
-  temp /= 16.0;
-  if (t & 0x1000)
-    temp -= 256;
+  if (t != 0xFFFF) {
+    temp = t & 0x0FFF;
+    temp /= 16.0;
+    if (t & 0x1000)
+      temp -= 256;
 
-  temp = temp * 9.0 / 5.0 + 32;
+    temp = temp * 9.0 / 5.0 + 32;
+  }
 
   return temp;
 }
