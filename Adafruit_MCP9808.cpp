@@ -234,12 +234,11 @@ uint16_t Adafruit_MCP9808::read16(uint8_t reg) {
  *    @param  reg
  *    @param  value
  */
-void Adafruit_MCP9808::write8(uint8_t reg, uint8_t value)
-{
-  _wire -> beginTransmission(_i2caddr);
-  _wire -> write((uint8_t)reg);
-  _wire -> write(value);
-  _wire -> endTransmission();
+void Adafruit_MCP9808::write8(uint8_t reg, uint8_t value) {
+  _wire->beginTransmission(_i2caddr);
+  _wire->write((uint8_t)reg);
+  _wire->write(value);
+  _wire->endTransmission();
 }
 
 /*!
@@ -247,19 +246,17 @@ void Adafruit_MCP9808::write8(uint8_t reg, uint8_t value)
  *    @param  reg
  *    @return value
  */
-uint8_t Adafruit_MCP9808::read8(uint8_t reg)
-{
+uint8_t Adafruit_MCP9808::read8(uint8_t reg) {
   uint8_t val = 0xFF;
   uint8_t state;
 
-  _wire -> beginTransmission(_i2caddr);
-  _wire -> write((uint8_t)reg);
-  state = _wire -> endTransmission();
+  _wire->beginTransmission(_i2caddr);
+  _wire->write((uint8_t)reg);
+  state = _wire->endTransmission();
 
-  if (state == 0)
-  {
-    _wire -> requestFrom((uint8_t)_i2caddr, (uint8_t)1);
-    val = _wire -> read();
+  if (state == 0) {
+    _wire->requestFrom((uint8_t)_i2caddr, (uint8_t)1);
+    val = _wire->read();
   }
 
   return val;
