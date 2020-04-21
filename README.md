@@ -1,4 +1,4 @@
-# Adafruit MCP9808 Library [![Build Status](https://github.com/adafruit/Adafruit_MCP9808_Library/workflows/Arduino%20Library%20CI/badge.svg)](https://github.com/adafruit/Adafruit_MCP9808_Library/actions)
+# Adafruit MCP9808 Library [![Build Status](https://github.com/adafruit/Adafruit_MCP9808_Library/workflows/Arduino%20Library%20CI/badge.svg)](https://github.com/adafruit/Adafruit_MCP9808_Library/actions)[![Documentation](https://github.com/adafruit/ci-arduino/blob/master/assets/doxygen_badge.svg)](http://adafruit.github.io/Adafruit_MCP9808_Library/html/index.html)
 
 <a href="https://www.adafruit.com/product/1782"><img src="assets/board.jpg?raw=true" width="500px"></a>
 
