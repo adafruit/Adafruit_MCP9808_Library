@@ -261,3 +261,50 @@ uint8_t Adafruit_MCP9808::read8(uint8_t reg) {
 
   return val;
 }
+
+/**************************************************************************/
+/*!
+    @brief  Gets the pressure sensor and temperature values as sensor events
+
+    @param  temp Sensor event object that will be populated with temp data
+    @returns True
+*/
+/**************************************************************************/
+bool Adafruit_MCP9808::getEvent(sensors_event_t *temp) {
+  uint32_t t = millis();
+
+  // use helpers to fill in the events
+  memset(temp, 0, sizeof(sensors_event_t));
+  temp->version = sizeof(sensors_event_t);
+  temp->sensor_id = _sensorID;
+  temp->type = SENSOR_TYPE_AMBIENT_TEMPERATURE;
+  temp->timestamp = t;
+  temp->temperature = readTempC();
+  return true;
+}
+
+
+/**************************************************************************/
+/*!
+    @brief  Gets the overall sensor_t data including the type, range and
+   resulution
+    @param  sensor Pointer to Adafruit_Sensor sensor_t object that will be
+   filled with sensor type data
+*/
+/**************************************************************************/
+void Adafruit_MCP9808::getSensor(sensor_t *sensor) {
+  /* Clear the sensor_t object */
+  memset(sensor, 0, sizeof(sensor_t));
+
+  /* Insert the sensor name in the fixed length char array */
+  strncpy(sensor->name, "MCP9808", sizeof(sensor->name) - 1);
+  sensor->name[sizeof(sensor->name) - 1] = 0;
+  sensor->version = 1;
+  sensor->sensor_id = _sensorID;
+  sensor->type = SENSOR_TYPE_AMBIENT_TEMPERATURE;
+  sensor->min_delay = 0;
+  sensor->max_value = 100.0;
+  sensor->min_value = -20.0;
+  sensor->resolution = 0.0625;
+}
+/*******************************************************/
