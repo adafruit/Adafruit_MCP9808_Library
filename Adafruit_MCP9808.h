@@ -17,9 +17,10 @@
 #ifndef _ADAFRUIT_MCP9808_H
 #define _ADAFRUIT_MCP9808_H
 
+#include "Adafruit_BusIO_Register.h"
 #include "Arduino.h"
+#include <Adafruit_I2CDevice.h>
 #include <Adafruit_Sensor.h>
-#include <Wire.h>
 
 #define MCP9808_I2CADDR_DEFAULT 0x18 ///< I2C address
 #define MCP9808_REG_CONFIG 0x01      ///< MCP9808 config register
@@ -46,7 +47,7 @@
  *    @brief  Class that stores state and functions for interacting with
  *            MCP9808 Temp Sensor
  */
-class Adafruit_MCP9808 : public Adafruit_Sensor  {
+class Adafruit_MCP9808 : public Adafruit_Sensor {
 public:
   Adafruit_MCP9808();
   bool begin();
@@ -76,9 +77,7 @@ public:
 
 private:
   uint16_t _sensorID = 9808; ///< ID number for temperature
-
-  TwoWire *_wire;
-  uint8_t _i2caddr;
+  Adafruit_I2CDevice *i2c_dev = NULL;
 };
 
 #endif
