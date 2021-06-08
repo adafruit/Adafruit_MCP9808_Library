@@ -174,7 +174,7 @@ void Adafruit_MCP9808::shutdown() { shutdown_wake(true); }
  */
 void Adafruit_MCP9808::wake() {
   shutdown_wake(false);
-  delay(250);
+  delay(260);
 }
 
 /*!
