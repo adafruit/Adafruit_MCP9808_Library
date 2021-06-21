@@ -70,6 +70,14 @@ $(function() {
  <a href="class_adafruit___m_c_p9808.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="_adafruit___m_c_p9808_8h_source.html">Adafruit_MCP9808.h</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for Adafruit_MCP9808:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="class_adafruit___m_c_p9808.png" usemap="#Adafruit_5FMCP9808_map" alt=""/>
+  <map id="Adafruit_5FMCP9808_map" name="Adafruit_5FMCP9808_map">
+</map>
+ </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -127,6 +135,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memitem:a41863196cd0f8bffcc27d414329391a9"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_adafruit___m_c_p9808.html#a41863196cd0f8bffcc27d414329391a9">read8</a> (uint8_t reg)</td></tr>
 <tr class="memdesc:a41863196cd0f8bffcc27d414329391a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Low level 8 bit read procedure.  <a href="#a41863196cd0f8bffcc27d414329391a9">More...</a><br /></td></tr>
 <tr class="separator:a41863196cd0f8bffcc27d414329391a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae1bc9235e96a5be86ae491b463c5e45c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_adafruit___m_c_p9808.html#ae1bc9235e96a5be86ae491b463c5e45c">getEvent</a> (sensors_event_t *)</td></tr>
+<tr class="memdesc:ae1bc9235e96a5be86ae491b463c5e45c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the pressure sensor and temperature values as sensor events.  <a href="#ae1bc9235e96a5be86ae491b463c5e45c">More...</a><br /></td></tr>
+<tr class="separator:ae1bc9235e96a5be86ae491b463c5e45c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a37bfe04aea9d0799607583efadcaf48b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_adafruit___m_c_p9808.html#a37bfe04aea9d0799607583efadcaf48b">getSensor</a> (sensor_t *)</td></tr>
+<tr class="memdesc:a37bfe04aea9d0799607583efadcaf48b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the overall sensor_t data including the type, range and resulution.  <a href="#a37bfe04aea9d0799607583efadcaf48b">More...</a><br /></td></tr>
+<tr class="separator:a37bfe04aea9d0799607583efadcaf48b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Class that stores state and functions for interacting with MCP9808 Temp Sensor. </p>
@@ -501,6 +515,59 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>value </dd></dl>
+
+</div>
+</div>
+<a id="ae1bc9235e96a5be86ae491b463c5e45c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae1bc9235e96a5be86ae491b463c5e45c">&#9670;&nbsp;</a></span>getEvent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Adafruit_MCP9808::getEvent </td>
+          <td>(</td>
+          <td class="paramtype">sensors_event_t *&#160;</td>
+          <td class="paramname"><em>temp</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets the pressure sensor and temperature values as sensor events. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">temp</td><td>Sensor event object that will be populated with temp data </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True </dd></dl>
+
+</div>
+</div>
+<a id="a37bfe04aea9d0799607583efadcaf48b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a37bfe04aea9d0799607583efadcaf48b">&#9670;&nbsp;</a></span>getSensor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Adafruit_MCP9808::getSensor </td>
+          <td>(</td>
+          <td class="paramtype">sensor_t *&#160;</td>
+          <td class="paramname"><em>sensor</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets the overall sensor_t data including the type, range and resulution. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sensor</td><td>Pointer to Adafruit_Sensor sensor_t object that will be filled with sensor type data </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
