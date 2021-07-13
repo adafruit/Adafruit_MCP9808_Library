@@ -92,19 +92,33 @@ bool Adafruit_MCP9808::init() {
 
 /*!
  *   @brief  Reads the 16-bit temperature register and returns the Centigrade
+ *           temperature as an integral number of 16ths of a degree.
+ *   @return Temperature in 16ths of a degree Centigrade.
+ */
+int16_t Adafruit_MCP9808::readTempC16() {
+  uint16_t t = read16(MCP9808_REG_AMBIENT_TEMP);
+
+  if (t == 0xFFFF)
+    return 0x7FFF;
+
+  uint16_t temp = t & 0x0FFF;
+  if (t & 0x1000)
+    temp -= 256 * 16;
+
+  return temp;
+}
+
+/*!
+ *   @brief  Reads the 16-bit temperature register and returns the Centigrade
  *           temperature as a float.
  *   @return Temperature in Centigrade.
  */
 float Adafruit_MCP9808::readTempC() {
   float temp = NAN;
-  uint16_t t = read16(MCP9808_REG_AMBIENT_TEMP);
+  int16_t t = readTempC16();
 
-  if (t != 0xFFFF) {
-    temp = t & 0x0FFF;
-    temp /= 16.0;
-    if (t & 0x1000)
-      temp -= 256;
-  }
+  if (t != 0x7FFF)
+    temp = t / 16.0;
 
   return temp;
 }
@@ -115,17 +129,10 @@ float Adafruit_MCP9808::readTempC() {
  *   @return Temperature in Fahrenheit.
  */
 float Adafruit_MCP9808::readTempF() {
-  float temp = NAN;
-  uint16_t t = read16(MCP9808_REG_AMBIENT_TEMP);
+  float temp = readTempC();
 
-  if (t != 0xFFFF) {
-    temp = t & 0x0FFF;
-    temp /= 16.0;
-    if (t & 0x1000)
-      temp -= 256;
-
+  if (temp != NAN)
     temp = temp * 9.0 / 5.0 + 32;
-  }
 
   return temp;
 }
