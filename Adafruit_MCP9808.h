@@ -56,6 +56,7 @@ public:
   bool begin(uint8_t addr, TwoWire *theWire);
 
   bool init();
+  int16_t readTempC16();
   float readTempC();
   float readTempF();
   uint8_t getResolution(void);
